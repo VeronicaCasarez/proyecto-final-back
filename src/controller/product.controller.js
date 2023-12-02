@@ -49,7 +49,7 @@ const createProduct = async (req, res) => {
     const totalPages = Math.ceil(totalProducts / perPage);
 
     
-    const products = await productsModel.find()
+    const products = await productsModel.find().lean()
       .skip((page - 1) * perPage)
       .limit(perPage)
       .exec();
@@ -62,8 +62,8 @@ const createProduct = async (req, res) => {
         totalPages,
         hasPrevPage: page > 1,
         hasNextPage: page < totalPages,
-        prevLink: page > 1 ? `/productos?page=${page - 1}` : null,
-        nextLink: page < totalPages ? `/productos?page=${page + 1}` : null
+        prevLink: page > 1 ? `/api/products?page=${page - 1}` : null,
+        nextLink: page < totalPages ? `/api/products?page=${page + 1}` : null
       }
     });
    

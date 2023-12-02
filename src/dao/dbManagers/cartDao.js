@@ -19,6 +19,7 @@ export default class CartDao {
     let result = await cartModel.findById({ _id: cid });
     return result;
   };
+
   //AGREGAR UN PRODUCTO AL CARRITO
   addProduct = async (cid, pid) => {
     try {
@@ -45,9 +46,9 @@ export default class CartDao {
       throw error;
     }
   };
+
   //VERIFICAR SI UN PRODUCTO ESTA EN EL CARRITO
   isThere = async (cartId, productId) => {
-    console.log("estoy en isThere", cartId, productId);
     try {
       const cart = await cartModel.findOne({ _id: cartId });
       if (cart) {
@@ -55,7 +56,6 @@ export default class CartDao {
           ({ product }) => String(product._id) === productId
         );
         if (productInCart) {
-          console.log("estoy en isThere", productInCart);
           return productInCart;
         } else {
           return null;
@@ -76,7 +76,6 @@ export default class CartDao {
         (p) => String(p.product._id) === pid
       );
       if (productIndex !== -1) {
-        console.log("estoy en incrementQuantity", productIndex);
         cart.products[productIndex].quantity += 1;
         const updatedCart = await cart.save();
 
@@ -117,9 +116,28 @@ export default class CartDao {
     }
   };
 
+  //ELIMINAR TODOS LOS PRODUCTOS DEL CARRITO
+  removeAllProducts = async (cid) => {
+    try {
+        const cart = await cartModel.findById(cid);
+        if (!cart) {
+          return console.error("Error al incrementar la cantidad del producto", error);
+    
+        }
+        cart.products = [];
+        await cart.save();
+    
+        return  cart;
+      } catch (error) {
+        console.error("Error al incrementar la cantidad del producto", error);
+      
+        throw error;
+      }
+  };
+
   //ELIMINAR CARRITO**
-  delete = async (id) => {
-    const deletedCart = await cartModel.findByIdAndDelete(id);
+  delete = async (cid) => {
+    const deletedCart = await cartModel.findByIdAndDelete(cid);
     return deletedCart;
   };
 

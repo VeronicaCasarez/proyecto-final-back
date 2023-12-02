@@ -23,6 +23,9 @@ export default class CartRepository {
     removeProductFromCart = (cid, data) => {
       return this.dao.removeProduct(cid, data);
     };
+    removeAllProductsFromCart = (cid) => {
+      return this.dao.removeAllProducts(cid);
+    };
     deleteCart = (cid) => {
       return this.dao.delete(cid);
     };

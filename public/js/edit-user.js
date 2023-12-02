@@ -4,9 +4,7 @@ document.querySelectorAll('.change-role-button').forEach(button => {
 });
 function moveToChangeRole(event) {
   event.preventDefault();
-
   const userId = event.target.id;
-
 
   fetch(`/api/users/premium/${userId}`, {
     method: 'GET',
@@ -17,10 +15,8 @@ function moveToChangeRole(event) {
   })
   .then(response => {
     if (response.ok) {
-      // Redirigir al carrito si la respuesta es exitosa
       window.location.href = `/api/users/premium/${userId}`;
     } else {
-      // Manejar errores aquí
       throw new Error('Error al ir a modificar rol');
     }
   })
@@ -31,17 +27,13 @@ function moveToChangeRole(event) {
 
 //LOGICA PARA EL FORMULARIO CAMBIAR ROL
 const changeUserForm = document.getElementById('update-role-user-form');
-
+changeUserForm &&
 changeUserForm.addEventListener('submit', async (event) => {
   event.preventDefault();
-
-  // Obtiene el valor seleccionado en el menú desplegable
   const newRole = document.getElementById('newRole').value.toString();
 
-  // Obtiene el correo electrónico del usuario a través del campo de entrada
   const userEmail = document.getElementById('userEmail').value;
 
-  // Realiza una solicitud GET para obtener el ID del usuario por correo electrónico
   try {
     const response = await fetch(`/api/users/byemail/${userEmail}`, {
       method: 'GET',
@@ -95,12 +87,18 @@ document.querySelectorAll('.button-delete-user').forEach(button => {
       'Content-Type': 'application/json'
     }
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Error al eliminar el usuario');
+    }
+    return response.json();
+  })
   .then(data => {
     console.log("Usuario eliminado");
     window.location.reload();
   })
   .catch(error => {
     console.log('Error:', error);
+    
   });
 }

@@ -7,6 +7,7 @@ import {
   getCartById,
   updateCart,
   generatedTicket,
+  emptyCart,
   deleteCart
 } from "../controller/cart.controller.js";
 import {
@@ -31,6 +32,10 @@ router.post("/:cid/purchase/", passportCall("jwt"),  generatedTicket);
 router.get("/:cid/finishpurchase/",passportCall("jwt"),getTicketByEmail);
 
 router.post("/:cid/product/:pid", passportCall("jwt"),  updateCart);
+
+router.put('/:cid/',passportCall("jwt"),emptyCart);
+
+router.delete('/:cid/',passportCall("jwt"),deleteCart);
 
 
 

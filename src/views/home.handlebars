@@ -8,12 +8,11 @@
             <p>Id: {{user.user.user._id}}</p>
         
             <button type="button" class="btn btn-secondary cart-button"  id="{{user.user.user.cart}}"> Ir al carrito</button>
-            
             <a  id="profile-button" class="btn btn-secondary m-2 ml-10 "  href="/api/users/{{user.user.user._id}}/profile">Ir al perfil</a> 
             <a  id="socket-button" class="btn btn-secondary m-2 ml-10 "  href="/chat">Ir al chat</a>
-
-            
+           
         {{/if}}
+
         {{#if showEditProduct}}
             <a type="button" class="btn btn-secondary m-2"   href="/api/updateproducts">Editar productos</a>
         {{/if}}
@@ -46,31 +45,20 @@
 <div id="paginated">
   <p>Page {{ pagination.currentPage }} of {{ pagination.totalPages }}</p>
 
+<div class="pagination">
   {{#if pagination.hasPrevPage}}
-    <a href="{{ pagination.prevLink }}">Anterior</a>
+    <a href="{{ pagination.prevLink }}" class="btn btn-secondary ">Anterior</a>
   {{/if}}
 
   {{#if pagination.hasNextPage}}
-    <a href="{{ pagination.nextLink }}">Siguiente</a>
+    <a href="{{ pagination.nextLink }}" class="btn btn-secondary ">Siguiente</a>
   {{/if}}
+</div>
 
 
 </div>
 
-{{!-- 
-  <div id="paginated">
-    <p>Page {{ pagination.currentPage }} of {{ pagination.totalPages }}</p>
-  
-      {{#if pagination.hasPrevPage}}
-        <a href="{{ pagination.prevLink }}">Anterior</a>
-      {{/if}}
-  
-       {{#if pagination.hasNextPage}}
-        <a href="{{ pagination.nextLink }}">Siguiente</a>
-      {{/if}}
-  </div> --}}
 
-</div>
  
  <script src="/js/product.js"></script>
  <script src="/js/logout.js"></script>

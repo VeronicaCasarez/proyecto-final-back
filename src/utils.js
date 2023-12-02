@@ -12,8 +12,7 @@ import {faker} from '@faker-js/faker';
 const PRIVATE_KEY = "CoderKeyQueNadieDebeSaber";
 
 export const generateToken = (user) => {
-  console.log("generar token ",user)
-  const token = jwt.sign({ user }, PRIVATE_KEY, { expiresIn: "1h" });
+  const token = jwt.sign({ user }, PRIVATE_KEY, { expiresIn: "2h" });
   return token;
 };
 
@@ -56,7 +55,6 @@ export const passportCall = (strategy) => {
 
 export const authorization = ()=>{
     return async(req,res,next)=>{
-      console.log("sesion",req.session);
       if (req.session.user && req.session.user.role.admin)  {
          return next();
       }else return res.status(403).json("error de autenticacion");

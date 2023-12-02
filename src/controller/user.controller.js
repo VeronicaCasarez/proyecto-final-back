@@ -180,7 +180,7 @@ const getProfile =async(req,res)=>{
 //ELIMINAR USUARIO
 const deleteUser =async(req,res)=>{
   const userId =req.params.uid;
-  const usertodelete= await userService.deleteUser(userId);
+  await userService.deleteUser(userId);
   notifier.notify({
     title: 'Exito',
     message: 'Usuario eliminado',

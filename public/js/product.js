@@ -1,60 +1,49 @@
-// function renderPagination(data) {
-//     const paginationDiv = document.getElementById('pagination');
-//     paginationDiv.innerHTML = '';
-//     if (data.hasPrevPage) {
-//       const prevLink = document.createElement('a');
-//       prevLink.href = data.prevLink;
-//       prevLink.textContent = 'Previous Page';
-//       paginationDiv.appendChild(prevLink);
-//     }
-//     if (data.hasNextPage) {
-//       const nextLink = document.createElement('a');
-//       nextLink.href = data.nextLink;
-//       nextLink.textContent = 'Next Page';
-//       paginationDiv.appendChild(nextLink);
-//     }
-//   }
-
-     // Lógica para agregar un producto al carrito
+// LOGICA PARA AGREGAR UN PRODUCTO AL CARRITO
   document.querySelectorAll('.button-add-to-cart').forEach(button => {
     button.addEventListener('click', addToCart);
   });
 
-    function addToCart(event) {
+  function addToCart(event) {
     event.preventDefault();
-    const cid = event.target.getAttribute("data-cart-id"); 
+    const cid = event.target.getAttribute("data-cart-id");
     const pid = event.target.id;
-    
+  
     fetch(`/api/carts/${cid}/product/${pid}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       }
     })
-    .then(response => response.json())
-    .then(data => console.log("producto agregado al carrito"))
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error al agregar producto al carrito');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log("Producto agregado al carrito:", data);
+    })
     .catch(error => {
-      console.log('Error:', error);
+      console.error('Error:', error);
     });
   }
   
     
 
-   // Lógica para mostrar los detalles del producto
+   // LOGICA PARA MOSTRAR LOS DETALLES DEL PRODUCTO
 document.querySelectorAll('.view-details-button').forEach(button => {
   button.addEventListener('click',  async (event) => {
      const productId = event.target.id;
  try {
-    const response = await fetch(`http://localhost:8080/api/products/${productId}`, {
+    const response = await fetch(`/api/products/${productId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
     });
 
-    // Maneja la respuesta de la API
     if (response.ok) {
-      window.location.href = `http://localhost:8080/api/products/${productId}`;
+      window.location.href = `/api/products/${productId}`;
     } else {
       throw new Error('Error al ir al detalle');
     }

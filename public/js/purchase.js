@@ -1,5 +1,4 @@
-
-   // Lógica para boton finalizar compra
+   // LOGICA PARA BOTON FINALIZAR COMPRA
    document.querySelectorAll('.button-finish-purchase').forEach(button => {
     button.addEventListener('click', moveToPurchase);
   });
