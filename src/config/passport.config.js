@@ -16,11 +16,11 @@ const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 const GITHUB_CALLBACK_URL = process.env.GITHUB_CALLBACK_URL;
 
-
+const privateKey = process.env.PRIVATE_KEY
 export const cookieExtractor = (req) => {
   let token = null;
   if (req && req.cookies) {
-    token = req.cookies["CoderKeyQueNadieDebeSaber"];
+    token = req.cookies[privateKey];
   }
   return token;
 };
@@ -31,11 +31,10 @@ const initializePassport = () => {
       new JWTStrategy(
         {
           jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
-          secretOrKey: "CoderKeyQueNadieDebeSaber",
+          secretOrKey: privateKey,
         },
         async (jwt_payload, done) => {
           try {
-            //validar que el usuario exista en la base de datos
             let response = await UserModel.find({
               email: jwt_payload.user.username,
             });

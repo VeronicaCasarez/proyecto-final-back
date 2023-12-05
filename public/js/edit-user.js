@@ -4,9 +4,9 @@ document.querySelectorAll('.change-role-button').forEach(button => {
 });
 function moveToChangeRole(event) {
   event.preventDefault();
-  const userId = event.target.id;
+  const uid = event.target.id;
 
-  fetch(`/api/users/premium/${userId}`, {
+  fetch(`/api/users/admin/${uid}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -15,7 +15,7 @@ function moveToChangeRole(event) {
   })
   .then(response => {
     if (response.ok) {
-      window.location.href = `/api/users/premium/${userId}`;
+      window.location.href = `/api/users/admin/${uid}`;
     } else {
       throw new Error('Error al ir a modificar rol');
     }
@@ -43,22 +43,18 @@ changeUserForm.addEventListener('submit', async (event) => {
     });
 
     if (response.ok) {
-      // Obtiene el ID del usuario desde la respuesta
-      const userId = await response.json();
+      const uid = await response.json();
 
-      // Realiza una solicitud POST para actualizar el rol del usuario por ID
-      const updateResponse = await fetch(`/api/users/premium/${userId}`, {
+      const updateResponse = await fetch(`/api/users/admin/${uid}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ newRole }), // Envía el nuevo rol como JSON
+        body: JSON.stringify({ newRole }),
       });
 
       if (updateResponse.ok) {
         console.log('Rol de usuario actualizado con éxito', newRole);
-        
-        // Borra los campos de entrada estableciendo sus valores en cadena vacía
         document.getElementById('newRole').value = '';
         document.getElementById('userEmail').value = '';
       } else {

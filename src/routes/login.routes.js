@@ -1,11 +1,7 @@
 import { Router } from "express";
+import {login}from "../controller/session.controller.js"
 const router = Router();
 
-router.get("", (req, res) => {
-  res.render("login", {
-    title: "Inicia sesion",
-  });
-});
-
+router.get("", login);
 
 export default router;

@@ -8,7 +8,6 @@ async function postSignup(first_name, last_name, age, username, password) {
      
   };
 
-  console.log("all  the data", data);
   const response = await fetch("/api/session/signup", {
     method: "POST",
     headers: {
@@ -21,7 +20,7 @@ async function postSignup(first_name, last_name, age, username, password) {
    if (result.respuesta === "ok") {
     window.location.href = "/"; 
   } else {
-    console.log(result); // Muestra los datos en caso de error
+    console.log(result);
   }
  
 }
@@ -30,7 +29,6 @@ async function postSignup(first_name, last_name, age, username, password) {
 const signupForm = document.getElementById("signup-form");
 
 signupForm.addEventListener("submit", function (event) {
-  console.log("tracking");
   event.preventDefault();
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;

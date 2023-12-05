@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { passportCall} from "../utils.js";
-import {isAdmin,isPremium} from "./middlewares.routes.js";
 import { uploadProductImage } from "../config/multer.config.js";
 import { getAllProductsForAdmin,createProduct,deleteProduct,updateProduct,getProductByIdForAdmin,uploadImageProduct} from "../controller/product.controller.js";
 

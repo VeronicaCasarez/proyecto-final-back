@@ -6,9 +6,9 @@
   function moveToPurchase(event) {
     event.preventDefault();
   
-    const cartId = event.target.id;
+    const cid = event.target.id;
     
-    fetch(`/api/carts/${cartId}/purchase/`, {
+    fetch(`/api/carts/${cid}/purchase/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -16,11 +16,8 @@
     })
     .then(response => {
       if (response.ok) {
-        
-        // Redirigir a la compra si es exitosa
-        window.location.href = `/api/carts/${cartId}/finishpurchase/`;
+        window.location.href = `/api/carts/${cid}/finishpurchase/`;
       } else {
-        // Manejar errores aquí
         throw new Error('Error al ir a compra');
       }
     })

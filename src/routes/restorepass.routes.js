@@ -1,5 +1,7 @@
 import { Router } from "express";
-import userModel from '../dao/models/user.model.js'
+import userModel from '../dao/models/user.model.js';
+import { enviarCorreoRecuperacion } from "../services/mailing.js";
+import notifier from 'node-notifier';
 
 const router = Router();
 
@@ -10,31 +12,18 @@ router.get("", (req, res) => {
 });
 
 
-router.post("/sendmail", async (req, res) => {
-    const email = req.body.email; // Obtén el correo electrónico del formulario
-  
-    // Verifica si el correo existe en tu base de datos de usuarios
-    const user = await userModel.findOne({ email }); 
-  
-    if (!user) {
-      return res.status(400).json({ success: false, message: "Correo electrónico no encontrado" });
-    }
-  
-    // Genera un enlace de recuperación con un token único y establece una hora de expiración
-    const token = generateUniqueToken();
-    const expirationTime = new Date(); // Calcula la hora de expiración
-    expirationTime.setHours(expirationTime.getHours() + 1);
-  
-    // Guarda el token y la hora de expiración en tu base de datos
-    user.resetPasswordToken = token;
-    user.resetPasswordExpiration = expirationTime;
-    await user.save();
-  
+router.post("/", async (req, res) => {
+    const emailAddress = req.body.email; 
     // Envía el correo de recuperación
-    const recoveryLink = `URL_BASE_DEL_SITIO/reset-password/${token}`;
-    enviarCorreoRecuperacion(email, recoveryLink);
-  
+    const recoveryLink = `http://localhost:8080/forgot`;
+    enviarCorreoRecuperacion(emailAddress,recoveryLink);
+    notifier.notify({
+      title: 'Correo enviado',
+      message: 'Se envio un correo a tu casilla de email',
+      timeout: 1000,
+    });
     res.json({ success: true, message: "Correo de recuperación enviado" });
   });
   
-export default router;
+
+  export default router;

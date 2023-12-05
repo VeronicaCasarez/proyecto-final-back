@@ -6,7 +6,7 @@ dotenv.config();
 
 // Configuración de Mailtrap
 const transporter = nodemailer.createTransport({
-  //service:process.env.MAILING_SERVICE,
+  service:process.env.MAILING_SERVICE,
   host: 'smtp.mailtrap.io',
   port: 2525,
   auth: {
@@ -33,7 +33,7 @@ async function sendEmail(emailAddress) {
   }
 };
 
-// Función para enviar correo electrónico cuando se elimino un producto
+// FUNCION PARA ENVIAR CORREO ELECTRONICO CUANDO SE ELIMINA UN PRODUCTO AL USUARIO PREMIUM
 async function sendEmailToPremium(emailAddress) {
 
   const mailOptions = {
@@ -51,27 +51,31 @@ async function sendEmailToPremium(emailAddress) {
   }
 }
 
-// Función para eliminar usuarios inactivos y enviar correos
+// FUNCION PARA ELIMINAR USUARIOS INACTIVOS
 async function deleteInactiveUsers() {
  const limiteInactividad = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000); // Últimos 2 días
  //const limiteInactividad = new Date(Date.now() - 30 * 60 * 1000); // Últimos 30 minutos
   try {
     const usuarios = await userService.getAllUsers(); 
+ 
     const usuariosInactivos = usuarios.filter(
       user =>
         (user.last_connection < limiteInactividad) && (user.role === 'user' || user.role === 'premium')
     );
-
+    if (usuariosInactivos){ 
     for (const usuario of usuariosInactivos) {
-      console.log("aca en mailing")
       await sendEmail(usuario.email); 
-      console.log(usuario.email)
       await userService.deleteUser(usuario._id);
       console.log(`Correo enviado y usuario ${usuario.email} eliminado por inactividad`);
     }
+  }else{
+    res.json({message:"No hay usuarios inactivos"})
+
+  }
+
   } catch (error) {
-    console.error('Error al encontrar usuarios inactivos:', error);
-    throw error;
+    res.json({message:'Error al encontrar usuarios inactivos:', error});
+    
   }
 }
 
@@ -80,7 +84,28 @@ deleteInactiveUsers().catch((error) => {
   console.error('Error al eliminar usuarios inactivos:', error);
 });
 
+
+//FUNCION PARA ENVIAR CORREO DE RECUPERACION
+const enviarCorreoRecuperacion = (emailAddress, recoveryLink) => {
+  const mailOptions = {
+    from: 'casaresveronica54@gmail.com',
+    to: emailAddress,
+    subject: 'Recuperación de contraseña',
+    text: `Haz clic en el siguiente enlace para recuperar tu contraseña: ${recoveryLink}`
+    
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error al enviar el correo:', error);
+    } else {
+      console.log('Correo enviado:', info.response);
+    }
+  });
+};
+
 export{
   deleteInactiveUsers,
-  sendEmailToPremium
+  sendEmailToPremium,
+  enviarCorreoRecuperacion
 };

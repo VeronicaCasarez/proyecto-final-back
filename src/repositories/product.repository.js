@@ -8,6 +8,9 @@ export default class ProductRepository {
     getAllProducts = () => {
       return this.dao.getAll();
     };
+    getAllProductsForPagination = (page,perPage)=>{
+      return this.dao.getPagination(page, perPage);
+    };
     getProductById = (pid) => {
       return this.dao.getById(pid);
     };

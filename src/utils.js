@@ -6,13 +6,15 @@ import bcrypt from 'bcrypt';
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
 import {faker} from '@faker-js/faker';
+import dotenv from 'dotenv';
 
+dotenv.config()
 
+//const PRIVATE_KEY = "CoderKeyQueNadieDebeSaber";
 
-const PRIVATE_KEY = "CoderKeyQueNadieDebeSaber";
-
+const secretKey =process.env.PRIVATE_KEY
 export const generateToken = (user) => {
-  const token = jwt.sign({ user }, PRIVATE_KEY, { expiresIn: "2h" });
+  const token = jwt.sign({ user }, secretKey, { expiresIn: "2h" });
   return token;
 };
 
@@ -21,15 +23,16 @@ export const authToken = (req, res, next) => {
 
   if (!authHeader) res.status(401).json({ error: "Error de autenticacion" });
 
-  // const token = authHeader.split(" ")[1];
 
-  jwt.verify(authHeader, PRIVATE_KEY, (err, user) => {
+  jwt.verify(authHeader, secretKey, (err, user) => {
     if (err) res.status(401).json({ error: "Token invalido" });
 
     req.user = user;
     next();
   });
 };
+
+
 
 export const passportCall = (strategy) => {
   return async (req, res, next) => {

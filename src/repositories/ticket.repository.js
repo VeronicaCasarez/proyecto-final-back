@@ -3,7 +3,7 @@ export default class TicketRepository {
       this.dao = dao;
     }
     createTicket = (ticket) => {
-      return this.dao.save(ticket);
+      return this.dao.create(ticket);
     };
     getAllTickets = () => {
       return this.dao.getAll();

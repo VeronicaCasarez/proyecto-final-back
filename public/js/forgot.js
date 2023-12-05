@@ -16,10 +16,9 @@ async function postForgot(username, newPassword) {
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
     const username = document.getElementById("username").value;
-    //const password = document.getElementById("password").value;
     const newPassword = document.getElementById("newPassword").value;
     const newTwoPassword = document.getElementById("newTwoPassword").value;
-  
+   console.log(newPassword)
     if (newPassword !== newTwoPassword) {
       alert("la nueva constrasena no coincide");
     } else {

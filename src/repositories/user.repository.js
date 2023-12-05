@@ -3,7 +3,7 @@ export default class UserRepository {
       this.dao = dao;
     }
     createUser = (user) => {
-      return this.dao.save(user);
+      return this.dao.create(user);
     };
     getAllUsers = () => {
       return this.dao.getAll();
@@ -14,6 +14,12 @@ export default class UserRepository {
     getUserIdByEmail = (email) => {
       return this.dao.getByEmail(email);
     };
+    getDataUserByEmail = (email) => {
+      return this.dao.getDataByEmail(email);
+    };
+    updateIdCartInUser = (user)=>{
+      return this.dao.updateIdCart(user)
+    }
     updateUser = (uid, newRole) => {
       return this.dao.update(uid, newRole);
     };

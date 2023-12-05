@@ -1,13 +1,9 @@
 import { Router } from "express";
-
+import {signup} from "../controller/session.controller.js";
 
 const router = Router();
 
-router.get("", (req, res) => {
-  res.render("signup", {
-    title: "Crea tu cuenta",
-  });
-});
+router.get("", signup);
 
 
 export default router;

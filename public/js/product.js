@@ -22,6 +22,7 @@
     })
     .then(data => {
       console.log("Producto agregado al carrito:", data);
+      window.location.reload();
     })
     .catch(error => {
       console.error('Error:', error);
@@ -33,9 +34,9 @@
    // LOGICA PARA MOSTRAR LOS DETALLES DEL PRODUCTO
 document.querySelectorAll('.view-details-button').forEach(button => {
   button.addEventListener('click',  async (event) => {
-     const productId = event.target.id;
+     const pid = event.target.id;
  try {
-    const response = await fetch(`/api/products/${productId}`, {
+    const response = await fetch(`/api/products/${pid}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -43,7 +44,7 @@ document.querySelectorAll('.view-details-button').forEach(button => {
     });
 
     if (response.ok) {
-      window.location.href = `/api/products/${productId}`;
+      window.location.href = `/api/products/${pid}`;
     } else {
       throw new Error('Error al ir al detalle');
     }

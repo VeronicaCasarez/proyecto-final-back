@@ -32,13 +32,7 @@ cartSchema.virtual("total").get(function () {
   return total.toFixed(2);
 });
 
-/*cartSchema.pre("getCartById", function () {
-  this.populate("Products.product");
-});
-cartSchema.pre("getCartId", function () {
-  this.populate("Products.product");
-});
-*/
+
 cartSchema.pre("findById", function () {
   this.populate("products.product");
 });

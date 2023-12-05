@@ -10,7 +10,7 @@
     </div>
 <div class= "d-flex flex-row flex-wrap"> 
 <div  class="container mt-0 row " > 
-    <h2>Lista de Productos, solo el Administrador puede estar acá</h2>
+    <h2>Editar Productos</h2>
      <p>{{user.user.user.email}}</p> 
 </div>
 
@@ -34,9 +34,6 @@
 
   <label for="availability">Disponibilidad:</label>
   <input type="number" id="availability" name="availability" required><br>
-
-  {{!-- <label for="productImage">Imagen:</label>
-  <input type="file" id="productImage" name="products" accept=".jpg, .jpeg, .png" required class="form-control mt-2"> --}}
 
   <button type="submit" id="createProductButton" data-user-id="{{user.user.user._id}}">Crear Producto</button>
 </form>
@@ -69,5 +66,6 @@
 </div>
 </div>
 </div>
-    <script src="/js/update-products.js"></script>
+
+<script src="/js/update-products.js"></script>
 

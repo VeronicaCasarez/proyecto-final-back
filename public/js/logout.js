@@ -10,7 +10,7 @@ logout.addEventListener("click", async (event) => {
       });
   
       if (response.ok) {
-        window.location.href = "/"; // Redirige a la página de inicio de sesión
+        window.location.href = "/"; 
       } else {
         console.error("Error al cerrar sesión");
       }

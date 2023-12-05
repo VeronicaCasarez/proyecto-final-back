@@ -6,7 +6,6 @@ const saveTicket = async (req, res) => {
     const user = req.user;
     await ticketService.createTicket(user);
     res.json(ticket);
-    // res.render('finishPurchase', { ticket: ticket })
   };
   
   /////OBTENER TODOS LOS  TICKETS////NO LA USO

@@ -1,4 +1,3 @@
-//export const PERSISTENCE = "MONGO";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -7,7 +6,7 @@ export const PERSISTENCE = process.env.PERSISTENCE || "MONGO";
 
 export default {
   app: {
-    ENV: process.env.NODE_ENV || "production",
+    ENV: process.env.NODE_ENV || "development",
   },
   mailing: {
     SERVICE: process.env.MAILING_SERVICE,

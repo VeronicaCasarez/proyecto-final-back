@@ -4,21 +4,14 @@ const updateProductForm = document.getElementById('updateProductForm');
 updateProductForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
- // Obtener el ID del producto de la ruta
- //const pid = event.target.id;
-
-
-// Divide la URL usando "/" como separador
  const pid = window.location.pathname.split('/').pop();
-
 
   const name = document.getElementById('name').value;
   const description = document.getElementById('description').value;
   const price = parseFloat(document.getElementById('price').value);
   const category = document.getElementById('category').value;
   const availability = parseInt(document.getElementById('availability').value);
-  //const productImage = parseInt(document.getElementById('productImage').value);
-  //const owner = parseInt(document.getElementById('owner').value);
+
 
   const updateProducto = {
     name,
@@ -26,18 +19,16 @@ updateProductForm.addEventListener('submit', async (event) => {
     price,
     category,
     availability,
-    //productImage,
-    //owner
+
   };
 
-  // Realiza una solicitud PUT al servidor para actualizar el producto
   try {
     const response = await fetch(`/api/updateproducts/${pid}`,  {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updateProducto), // Envía los datos como JSON
+      body: JSON.stringify(updateProducto), 
     });
 
     if (response.ok) {

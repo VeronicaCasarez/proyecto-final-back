@@ -1,11 +1,8 @@
 import { Router } from "express";
+import {forgotPassword} from "../controller/session.controller.js"
 
 const router = Router();
 
-router.get("", (req, res) => {
-  res.render("forgot", {
-    title: "Olvidaste tu contrasena?",
-  });
-});
+router.get("", forgotPassword); 
 
 export default router;

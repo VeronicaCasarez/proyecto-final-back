@@ -1,11 +1,7 @@
 import { userService } from "../repositories/services.js";
-import multer from 'multer';
-import notifier from 'node-notifier';
-import { createUserDTO } from "../DTO/userDTO.js"; 
+import { createUserDTO } from "../DTO/userDTO.js";
+import notifier from 'node-notifier'; 
 
-
-// Configuración de Multer para la subida de imágenes de perfil
-//const profileImageUpload = multer({ dest: 'public/upload/profiles/' });
 
 //GUARDAR UN USUARIO////****** */
 const saveUser = async (req, res) => {
@@ -106,7 +102,8 @@ const changeRoleUser = async(req,res)=>{
       message: 'El usuario debe cargar los documentos'
     });
 }
-}
+};
+
 //OBTENER USUARIO POR EMAIL///////*** */
 const getUserByEmail = async(req,res)=>{
   const email=req.params.userEmail;

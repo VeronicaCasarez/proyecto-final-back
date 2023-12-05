@@ -48,14 +48,14 @@ createProductForm &&
     }
   });
 
-//LOGICA PARA ELIMINAR UN PRODUCTO*****
+//LOGICA PARA ELIMINAR UN PRODUCTO POR EL ADMINISTRADOR*****
 document.querySelectorAll(".button-delete-product").forEach((button) => {
   button.addEventListener("click", async (event) => {
-    const productId = event.target.id;
+    const pid = event.target.id;
 
     try {
       const response = await fetch(
-        `/api/updateproducts/${productId}`,
+        `/api/updateproducts/${pid}`,
         {
           method: "DELETE",
           headers: {
@@ -85,9 +85,9 @@ document.querySelectorAll(".button-to-update-product").forEach((button) => {
 function moveToUpdateProduct(event) {
   event.preventDefault();
 
-  const productId = event.target.id;
+  const pid = event.target.id;
 
-  fetch(`/api/updateproducts/${productId}`, {
+  fetch(`/api/updateproducts/${pid}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -95,10 +95,8 @@ function moveToUpdateProduct(event) {
   })
     .then((response) => {
       if (response.ok) {
-        // Redirigir a actualizar producto si la respuesta es exitosa
-        window.location.href = `/api/updateproducts/${productId}`;
+        window.location.href = `/api/updateproducts/${pid}`;
       } else {
-        // Manejar errores aquí
         throw new Error("Error al ir a actualizar prodcuto");
       }
     })
@@ -106,4 +104,4 @@ function moveToUpdateProduct(event) {
       alert(error.message);
     });
 }
-//**********************
+

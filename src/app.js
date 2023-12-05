@@ -11,17 +11,14 @@ import ProductRouter from "./routes/product.routes.js";
 import CartRouter from "./routes/cart.routes.js";
 import UserRouter from "./routes/user.routes.js";
 import LogoutRouter from "./routes/logout.routes.js";
-import CurrentRouter from "./routes/current.routes.js";
-import ForgotRoute from "./routes/forgot.routes.js"
+import ForgotRouter from "./routes/forgot.routes.js"
 import FailLogin from "./routes/session.routes.js";
 import FailRegister from "./routes/session.routes.js";
 import ChatRouter from "./routes/chat.routes.js";
-import PrivateRouter from "./routes/private.routes.js";
 import UpdateProductsRouter from "./routes/updateproducts.router.js";
 import MockingRouter from "./routes/mocking.routes.js"
 import RestorePass from "./routes/restorepass.routes.js";
 import passport from "passport";
-import nodemailer from 'nodemailer';
 import initializePassport from "./config/passport.config.js";
 import { Server } from "socket.io";
 import { createServer } from "http";
@@ -38,20 +35,16 @@ import swaggerUiExpress from "swagger-ui-express";
 import { deleteInactiveUsers } from '../src/services/mailing.js'
 
 dotenv.config();
+const secretCookie = process.env.SECRET_COOKIE;
 const app = express();
 const httpServer = createServer(app);
-app.use(cookieParser("C0d3rS3cr3t"));
+app.use(cookieParser(secretCookie)); 
 
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT || 8080;
 
 //manejo de archivos staticos y json
 app.use(express.static("public"));
-// // Rutas estáticas para servir los archivos subidos
-// app.use('/public/profiles', express.static(path.join(__dirname, 'public', 'upload', 'profiles')));
-// app.use('/public/products', express.static(path.join(__dirname, 'public', 'upload', 'products')));
-// app.use('/public/documents', express.static(path.join(__dirname, 'public', 'upload', 'documents')));
-
 app.use('/public/upload', express.static(path.join(__dirname, '../public/upload')));
 app.use('/public/image', express.static(path.join(__dirname, '../public/image')));
 app.use('/public/upload/profiles', express.static(path.join(__dirname, '/public/upload/profiles')));
@@ -62,8 +55,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //configuracion de handlebars
-//handlebars.create({ allowProtoPropertiesByDefault: true });
-
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
@@ -134,10 +125,8 @@ app.use("/", LoginRoute);
 app.use("/signup", SignupRoute);
 app.use("/api/session/", SessionRoute);
 app.use("/api/products/",ProductRouter);
-app.use("/private",PrivateRouter);
 app.use("/logout",LogoutRouter);
-app.use("/current",CurrentRouter);
-app.use("/forgot", ForgotRoute);
+app.use("/forgot", ForgotRouter);
 app.use("/",FailLogin);
 app.use("/",FailRegister);
 app.use("/api/carts/",CartRouter);
@@ -145,8 +134,7 @@ app.use("/api/users/",UserRouter);
 app.use("/chat",ChatRouter);
 app.use("/api/updateproducts/",UpdateProductsRouter);
 app.use("/mockingproducts",MockingRouter);
-app.use("/restorepassword",RestorePass);
-
+app.use("/api/restore-password/",RestorePass);
 
 
 // Configuración del socket (del lado del servidor)
