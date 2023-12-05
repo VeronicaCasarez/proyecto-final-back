@@ -37,9 +37,9 @@ Para configurar correctamente la aplicación, debes definir las siguientes varia
 
 - **PORT**: Puerto en el que se ejecutará la aplicación (sugerido: 8080).
 
-- **PRIVATE_KEY**: Clave privada para alguna funcionalidad específica (debe ser definida).
+- **NAME_COOKIE**: Nombre de la cookie.
 
-- **SECRET_COOKIE**: Clave secreta para cookies (debe ser definida).
+- **SECRET_COOKIE**: Clave secreta para cookies.
 
 - **GITHUB_CLIENT_ID**: ID de cliente de la API de autenticación de GitHub.
 
@@ -96,4 +96,5 @@ Se han creado 16 productos con propietarios asignados.
 Estas credenciales pueden ser utilizadas para realizar pruebas y verificar funcionalidades en diferentes roles dentro de la aplicación.
 
 Asegúrate de utilizar las credenciales correspondientes al rol que necesites probar.
-Tener en cuenta que el sistema puede eliminar usuarios por inactividad.
+Tener en cuenta que el sistema puede eliminar usuarios por inactividad. Se estableció que los administradores no son eliminados por inactividad.
+

@@ -17,7 +17,7 @@ export default {
     URL: process.env.MONGO_URL,
   },
   jwt: {
-    COOKIE: process.env.JWT_COOKIE,
-    SECRET: process.env.JWT_SECRET,
+    COOKIE: process.env.NAME_COOKIE,
+    SECRET: process.env.SECRET_SECRET,
   },
 };

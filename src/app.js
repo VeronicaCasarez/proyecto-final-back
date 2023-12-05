@@ -36,6 +36,7 @@ import { deleteInactiveUsers } from '../src/services/mailing.js'
 
 dotenv.config();
 const secretCookie = process.env.SECRET_COOKIE;
+
 const app = express();
 const httpServer = createServer(app);
 app.use(cookieParser(secretCookie)); 
@@ -76,7 +77,7 @@ app.use(
       },
       ttl: 10,
     }),
-    secret: "codersecret",
+    secret: secretCookie,
     resave: false,
     saveUninitialized: false,
   })

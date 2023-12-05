@@ -2,6 +2,11 @@ import { cartService, userService } from "../repositories/services.js";
 import {generateToken} from "../utils.js";
 import { __dirname } from "../utils.js";
 import notifier from 'node-notifier';
+import * as dotenv from "dotenv";
+
+
+dotenv.config();
+const nameCookie = process.env.NAME_COOKIE;
 
 //REGISTARSE 
 const signup = async (req,res)=>{
@@ -30,7 +35,7 @@ const sessionLogin = async (req, res) => {
       await userService.updateIdCartInUser(user);
 
       const myToken = generateToken({ user, cart });
-      res.cookie("CoderKeyQueNadieDebeSaber", myToken, {
+      res.cookie(nameCookie, myToken, {
         maxAge: 60 * 60 * 1000,
         httpOnly: true,
       }).json({ status: "success", respuesta: "Autenticado exitosamente",token:myToken });
@@ -75,7 +80,7 @@ const logoutSession = async (req, res) => {
         return res.status(500).json({ respuesta: "Error en el servidor" });
       } else {
         // Limpiar el token y cerrar sesión
-        res.clearCookie("CoderKeyQueNadieDebeSaber");
+        res.clearCookie(nameCookie);
         res.redirect("/");
       }
     });

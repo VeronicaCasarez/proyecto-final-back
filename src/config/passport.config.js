@@ -16,11 +16,14 @@ const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 const GITHUB_CALLBACK_URL = process.env.GITHUB_CALLBACK_URL;
 
-const privateKey = process.env.PRIVATE_KEY
+
+const nameCookie = process.env.NAME_COOKIE;
+const secretCookie = process.env.SECRET_COOKIE;
+
 export const cookieExtractor = (req) => {
   let token = null;
   if (req && req.cookies) {
-    token = req.cookies[privateKey];
+    token = req.cookies[nameCookie];
   }
   return token;
 };
@@ -31,7 +34,7 @@ const initializePassport = () => {
       new JWTStrategy(
         {
           jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
-          secretOrKey: privateKey,
+          secretOrKey: secretCookie,
         },
         async (jwt_payload, done) => {
           try {

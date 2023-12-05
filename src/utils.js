@@ -10,11 +10,11 @@ import dotenv from 'dotenv';
 
 dotenv.config()
 
-//const PRIVATE_KEY = "CoderKeyQueNadieDebeSaber";
 
-const secretKey =process.env.PRIVATE_KEY
+const secretCookie = process.env.SECRET_COOKIE;
+
 export const generateToken = (user) => {
-  const token = jwt.sign({ user }, secretKey, { expiresIn: "2h" });
+  const token = jwt.sign({ user }, secretCookie, { expiresIn: "2h" });
   return token;
 };
 
