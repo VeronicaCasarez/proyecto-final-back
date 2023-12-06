@@ -28,7 +28,6 @@ const saveTicket = async (req, res) => {
     const userEmail = req.user.user.user.email;
     const ticket = await ticketService.getTicketByEmail(userEmail);
     ticket._id = ticket._id.toString();
-    console.log(ticket);
     res.render('finish-purchase', ticket);
   };
   

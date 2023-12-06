@@ -1,5 +1,5 @@
-    <h1>Compra finalizada</h1>
-     <div class="row">
+<div class="container-fluid">
+    <div class="row">
         <div class="col">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
@@ -8,16 +8,34 @@
             </nav>
         </div>
     </div>
-    <ul>
-            <li>
-                <strong>Id:</strong> {{_id}} <br>
-                <strong>Código:</strong> {{code}} <br>
-                <strong>Fecha de Compra:</strong> {{purchase_datetime}} <br>
-                <strong>Monto:</strong> {{amount}} <br>
-                <strong>Comprador:</strong> {{purchaser}} <br>
-                <a  class="btn btn-secondary m-2 ml-10 "  href="/api/products">Ir al listado de productos</a>
-            </li>
+
+    <div class="row">
+        <div class="col">
+            <h1>Finalizar compra</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <ul>
+                <li>
+                    <strong>Id:</strong> {{_id}} <br>
+                    <strong>Código:</strong> {{code}} <br>
+                    <strong>Fecha de Compra:</strong> {{purchase_datetime}} <br>
+                    <strong>Monto:</strong> {{amount}} <br>
+                    <strong>Comprador:</strong> {{purchaser}} <br>
+                </li>
+            </ul>
+            <a class="btn btn-secondary m-2 ml-10" href="/api/products">Ir al listado de productos</a>
+        </div>
+
+        <div class="col">
+            <a class="btn btn-sm btn-outline-secondary" href="/api/payments">Pagar con Stripe</a>
+            
+        </div>
+    </div>
+</div>
 
 
-    </ul>
+<script src="/js/payment.js"></script>
 

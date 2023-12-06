@@ -112,7 +112,7 @@ const generatedTicket = async (req, res) => {
 
   try {
     const cart = await cartService.getCartById(cid);
-    const randomCode = getRandomInt(1000, 9999);
+    const randomCode = getRandomInt(100000, 999999);
 
     const newTicket = {
       code: randomCode,

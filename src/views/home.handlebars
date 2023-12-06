@@ -26,7 +26,7 @@
 <div id="product-list" class="d-flex flex-row flex-wrap">
   {{#each products }}
     <div class="card m-2 mb-10 p-5" style="width: 18rem;">
-      <img src="http://localhost:8080/{{productImage}}" class="card-img-top" alt="Product Image">
+      <img src="{{productImage}}" class="card-img-top" alt="Product Image">
       <div class="card-body">
         <h5 class="card-title">{{this.name}}</h5>
         <p class="card-text">Categoría: {{category}}</p>

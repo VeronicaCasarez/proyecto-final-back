@@ -18,6 +18,7 @@ import ChatRouter from "./routes/chat.routes.js";
 import UpdateProductsRouter from "./routes/updateproducts.router.js";
 import MockingRouter from "./routes/mocking.routes.js"
 import RestorePass from "./routes/restorepass.routes.js";
+import PaymentsRouter from "./routes/payments.routes.js";
 import passport from "passport";
 import initializePassport from "./config/passport.config.js";
 import { Server } from "socket.io";
@@ -32,10 +33,13 @@ import LoggerRouter from "./routes/loggertest.routes.js"
 
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express";
-import { deleteInactiveUsers } from '../src/services/mailing.js'
+import { deleteInactiveUsers } from '../src/services/mailing.js';
+
+import cors from 'cors';
 
 dotenv.config();
 const secretCookie = process.env.SECRET_COOKIE;
+
 
 const app = express();
 const httpServer = createServer(app);
@@ -43,6 +47,8 @@ app.use(cookieParser(secretCookie));
 
 const MONGO_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT || 8080;
+
+app.use(cors());
 
 //manejo de archivos staticos y json
 app.use(express.static("public"));
@@ -136,6 +142,7 @@ app.use("/chat",ChatRouter);
 app.use("/api/updateproducts/",UpdateProductsRouter);
 app.use("/mockingproducts",MockingRouter);
 app.use("/api/restore-password/",RestorePass);
+app.use("/api/payments/",PaymentsRouter);
 
 
 // Configuración del socket (del lado del servidor)
