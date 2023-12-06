@@ -18,7 +18,6 @@ import ChatRouter from "./routes/chat.routes.js";
 import UpdateProductsRouter from "./routes/updateproducts.router.js";
 import MockingRouter from "./routes/mocking.routes.js"
 import RestorePass from "./routes/restorepass.routes.js";
-import PaymentsRouter from "./routes/payments.routes.js";
 import ImageRouter from "./routes/image.routes.js";
 import passport from "passport";
 import initializePassport from "./config/passport.config.js";
@@ -143,8 +142,6 @@ app.use("/chat",ChatRouter);
 app.use("/api/updateproducts/",UpdateProductsRouter);
 app.use("/mockingproducts",MockingRouter);
 app.use("/api/restore-password/",RestorePass);
-app.use("/api/payments/",PaymentsRouter);
-app.use("/", ImageRouter);
 
 
 // Configuración del socket (del lado del servidor)

@@ -53,7 +53,8 @@ async function sendEmailToPremium(emailAddress) {
 
 // FUNCION PARA ELIMINAR USUARIOS INACTIVOS
 async function deleteInactiveUsers() {
- const limiteInactividad = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000); // Últimos 2 días
+  const limiteInactividad = new Date(Date.now() - 10 * 24 * 60 * 60 * 1000); // Últimos 10 días
+
  //const limiteInactividad = new Date(Date.now() - 30 * 60 * 1000); // Últimos 30 minutos
   try {
     const usuarios = await userService.getAllUsers(); 

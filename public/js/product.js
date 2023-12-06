@@ -21,8 +21,7 @@
       return response.json();
     })
     .then(data => {
-      console.log("Producto agregado al carrito:", data);
-      window.location.reload();
+      alert("Producto agregado al carrito.");
     })
     .catch(error => {
       console.error('Error:', error);
