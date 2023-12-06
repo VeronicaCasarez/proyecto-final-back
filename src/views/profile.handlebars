@@ -11,7 +11,7 @@
     <h6>{{first_name}}</h6>
     <h6>{{email}}</h6>
   
-     <img src="http://localhost:8080/{{ profileImage}}"   alt="Avatar" width="150" height="150" class="img-fluid rounded-circle mt-3"> 
+     <img src="/{{profileImage}}"   alt="Avatar" width="150" height="150" class="img-fluid rounded-circle mt-3"> 
   
     <h3 class="mt-4">Cargar Avatar</h3>
     <form   action="/api/users/{{_id}}/upload-avatar" method="POST" enctype="multipart/form-data">
